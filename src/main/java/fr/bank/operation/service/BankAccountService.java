@@ -3,6 +3,7 @@ package fr.bank.operation.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +24,13 @@ public class BankAccountService {
 	@Autowired
 	AccountBankMapper mapper;
 	
-	
+
 	public AccountBankDto getAccount(long id) throws ResourceNotFoundException {
 		Optional<AccountBank> optionalAccount =accountBankRepository.findById(id);
 		if(!optionalAccount.isPresent()) {
 			throw new ResourceNotFoundException("account not found "+id);
 		}
-		return mapper.mapper(optionalAccount.get());
+		return this.mapper.mapper(optionalAccount.get());
 	}
 
 

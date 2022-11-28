@@ -3,6 +3,7 @@ package fr.bank.operation.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +22,12 @@ public class BankAccountController {
 
 	@Autowired
 	BankAccountService bankAccountService;
-	
-	
-	
-	@GetMapping("{idAccount}")
-	public AccountBankDto getAccount(@PathVariable long idAccount ) throws ResourceNotFoundException{
+
+
+
+	@GetMapping(path="{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public AccountBankDto getAccount(@PathVariable("id") Long idAccount ) throws ResourceNotFoundException{
+		System.out.println(idAccount);
 		return bankAccountService.getAccount(idAccount);
 	}
 	
@@ -34,8 +36,8 @@ public class BankAccountController {
 	public List<Operation>  getListOperations(@PathVariable long idAccount) throws ResourceNotFoundException{
 		 return bankAccountService.getListOperation(idAccount);
 	}
-	@GetMapping("{idClient}")
-	public ClientDto  geAcount(@PathVariable long idClient) throws ResourceNotFoundException{
-		 return bankAccountService.getClient(idClient);
+	@GetMapping("clients/{id}")
+	public ClientDto  geClient(@PathVariable("id") long id) throws ResourceNotFoundException{
+		 return bankAccountService.getClient(id);
 	}
 }
